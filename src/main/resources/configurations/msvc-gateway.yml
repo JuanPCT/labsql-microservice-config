@@ -18,7 +18,16 @@ spring:
           uri: http://localhost:8090
           predicates:
             - Path=/api/student/**
-        - id: courses
-          uri: http://localhost:9090
-          predicates:
-            - Path=/api/course/**
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:9090/realms/labsql-microservices-realm
+        registration:
+            spring-cloud-gateway-client:
+                client-id: microservice-gateway-client
+                client-secret: h4Rk8gn7DdxlZHQtqQ8iyX5xkhNRnEEX
+                provider: keycloak
+                authorization-grant-type: authorization_code
+                redirect-uri: http://localhost:8080/login/oauth2/code/microservice-gateway-client
